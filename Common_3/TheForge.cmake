@@ -41,7 +41,11 @@ endif()
 
 set_property(TARGET The-Forge PROPERTY CXX_STANDARD 17)
 
+target_include_directories(The-Forge INTERFACE ${GLOBAL_INTERFACE_INCLUDES})
+target_include_directories(The-Forge PUBLIC ${RENDER_INCLUDES})
 target_link_libraries(The-Forge PUBLIC The-Forge-Dependencies ozz_animation ${GLOBAL_LIBRARIES} ${RENDER_LIBRARIES})
+
+message("The-Forge Render Libraries: " + ${RENDER_LIBRARIES})
 
 target_compile_definitions(The-Forge PUBLIC ${GLOBAL_DEFINES})
 

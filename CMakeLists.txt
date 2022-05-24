@@ -22,6 +22,7 @@ set(OZZ OFF)
 set(RENDER_LIBRARIES "")
 set(RENDER_INCLUDES "")
 
+set(GLOBAL_INTERFACE_INCLUDES ${PROJECT_SOURCE_DIR})
 set(GLOBAL_LIBRARIES "")
 set(GLOBAL_LIBRARY_PATHS "")
 set(GLOBAL_INCLUDES "")
@@ -84,8 +85,12 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
         "${CMAKE_CURRENT_SOURCE_DIR}/Common_3/ThirdParty/OpenSource/winpixeventruntime/bin"
     )
 
+    # For some reason Windows requires the Vulkan SDK to be installed
+    set(RENDER_INCLUDES ${RENDER_INCLDUES}
+        $ENV{VULKAN_SDK}/Include
+    )
+
     set(DX12 ON)
-    set(VULKAN ON)
 
     set(RENDER_LIBRARIES ${RENDER_LIBRARIES}
 

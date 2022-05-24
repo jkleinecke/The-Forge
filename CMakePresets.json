@@ -16,11 +16,6 @@
 			"cacheVariables": {
 				"DX12": "ON",
 				"VULKAN": "ON"
-			},
-			"condition": {
-				"type": "equals",
-				"lhs": "${hostSystemName}",
-				"rhs": "Windows"
 			}
 		}
 	],
