@@ -25,6 +25,8 @@ set(OS_CORE_FILES
     ./OS/Core/ThreadSystem.h
     ./OS/Core/Timer.c
     ./OS/Core/UnixThreadID.h
+    ./OS/Core/CPUConfig.cpp
+    ./OS/Core/CPUConfig.h
 )
 
 set(OS_FILESYSTEM_FILES
@@ -35,6 +37,7 @@ set(OS_FILESYSTEM_FILES
 
 set(OS_FONT_FILES
     ./OS/Fonts/FontSystem.cpp
+    ./OS/Fonts/stbtt.cpp
 )
 
 set(OS_FONT_SHADER_FILES
@@ -129,6 +132,10 @@ set(OS_UI_SHADER_FILES
     ./OS/UI/Shaders/FSL/textured_mesh.vert.fsl
 )
 
+set(OS_WINDOWSYSTEM_FILES
+    ./OS/WindowSystem/WindowSystem.cpp
+)
+
 set(OS_WINDOWS_FILES
     ./OS/Windows/WindowsBase.cpp
     ./OS/Windows/WindowsFileSystem.cpp
@@ -137,6 +144,7 @@ set(OS_WINDOWS_FILES
     ./OS/Windows/WindowsStackTraceDump.h
     ./OS/Windows/WindowsThread.c
     ./OS/Windows/WindowsTime.c
+    ./OS/Windows/WindowsWindow.cpp
 )
 
 set(OS_DARWIN_FILES
@@ -193,6 +201,7 @@ source_group(OS\\Math FILES ${OS_MATH_FILES})
 source_group(OS\\MemoryTracking FILES ${OS_MEMORYTRACKING_FILES})
 source_group(OS\\Profiler FILES ${OS_PROFILER_FILES})
 source_group(OS\\Scripting FILES ${OS_SCRIPTING_FILES})
+source_group(OS\\WindowSystem ${OS_WINDOWSYSTEM_FILES})
 source_group(OS\\UI FILES ${OS_UI_FILES})
 source_group(OS\\UI\\Shaders FILES ${OS_UI_SHADER_FILES})
 source_group(Middleware_3\\Animation FILES ${OS_MIDDLEWARE_ANIMATION_FILES})

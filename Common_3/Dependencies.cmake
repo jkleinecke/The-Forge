@@ -170,6 +170,24 @@ set(GAINPUT_STATIC_FILES
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/gestures/GainputRotateGesture.cpp
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/gestures/GainputSimultaneouslyDownGesture.cpp
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/gestures/GainputTapGesture.cpp
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/GainputHID.cpp
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/GainputHID.h
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/GainputHIDTypes.h
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/GainputHIDWhitelist.cpp
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/GainputHIDWhitelist.h
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/hidparsers/HIDParserPS4Controller.cpp
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/hidparsers/HIDParserPS4Controller.h
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/hidparsers/HIDParserPS5Controller.cpp
+    ./ThirdParty/OpenSource/gainput/lib/source/gainput/hid/hidparsers/HIDParserPS5Controller.h
+    ./ThirdParty/OpenSource/gainput/lib/source/hidapi/hidapi.h
+)
+
+set(GAINPUT_LINUX_FILES
+    ./ThirdParty/OpenSource/gainput/lib/source/hidapi/linux/hid.c
+)
+
+set(GAINPUT_WINDOWS_FILES
+    ./ThirdParty/OpenSource/gainput/lib/source/hidapi/windows/hid.c
 )
 
 set(GAINPUT_MACOS_FILES
@@ -178,10 +196,39 @@ set(GAINPUT_MACOS_FILES
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/mouse/GainputInputDeviceMouseMac.mm
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/mouse/GainputInputDeviceMouseMacRaw.mm
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/keyboard/GainputInputDeviceKeyboardMac.cpp
+    ./ThirdParty/OpenSource/gainput/lib/source/hidapi/mac/hid.c
 )
  
 set(GAINPUT_IOS_FILES
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/GainputIos.mm
+)
+
+# cpu_features
+set(CPU_FEATURES_STATIC_FILES
+    ./ThirdParty/OpenSource/cpu_features/src/bit_utils.h
+    ./ThirdParty/OpenSource/cpu_features/src/cpu_features_cache_info.h
+    ./ThirdParty/OpenSource/cpu_features/src/cpu_features_macros.h
+    ./ThirdParty/OpenSource/cpu_features/src/cpu_features_types.h
+    ./ThirdParty/OpenSource/cpu_features/src/cpuid_x86.h
+    ./ThirdParty/OpenSource/cpu_features/src/cpuinfo_aarch64.h
+    ./ThirdParty/OpenSource/cpu_features/src/cpuinfo_x86.h
+    #./ThirdParty/OpenSource/cpu_features/src/hwcaps.c
+)
+
+set(CPU_FEATURES_WINDOWS_FILES
+    ./ThirdParty/OpenSource/cpu_features/src/impl_x86_windows.c
+)
+
+set(CPU_FEATURES_MACOS_FILES
+    ./ThirdParty/OpenSource/cpu_features/src/impl_x86_macos.c
+)
+
+set(CPU_FEATURES_IOS_FILES
+    ./ThirdParty/OpenSource/cpu_features/src/impl_aarch64_iOS.c
+)
+
+set(CPU_FEATURES_LINUX_FILES
+    ./ThirdParty/OpenSource/cpu_features/impl_x86_linux_or_android.c
 )
 
 source_group(Dependencies\\BasisU FILES ${BASISU_FILES})
@@ -193,14 +240,42 @@ source_group(Dependencies\\rmem FILES ${RMEM_FILES})
 source_group(Dependencies\\MeshOptimizer FILES ${MESHOPTIMIZER_FILES})
 source_group(Dependencies\\TinyEXR FILES ${THIRDPARTY_OSS_TINYEXR_FILES})
 
+
 if(${APPLE_PLATFORM} MATCHES ON) 
-    set(GAINPUT_STATIC_FILES
+    set(GAINPUT_FILES
         ${GAINPUT_STATIC_FILES}
         ${GAINPUT_MACOS_FILES}
     )
+    set(CPU_FEATURES_FILES
+        ${CPU_FEATURES_STATIC_FILES}
+        ${CPU_FEATURES_MACOS_FILES}
+    )
 endif()
 
-source_group(Dependencies\\gainput FILES ${GAINPUT_STATIC_FILES})
+if (WINDOWS MATCHES ON)
+    set(GAINPUT_FILES
+        ${GAINPUT_STATIC_FILES}
+        ${GAINPUT_WINDOWS_FILES}
+    )
+    set(CPU_FEATURES_FILES
+        ${CPU_FEATURES_STATIC_FILES}
+        ${CPU_FEATURES_WINDOWS_FILES}
+    )
+endif()
+
+if (LINUX MATCHES ON)
+    set(GAINPUT_FILES
+        ${GAINPUT_STATIC_FILES}
+        ${GAINPUT_LINUX_FILES}
+    )
+    set(CPU_FEATURES_FILES
+        ${CPU_FEATURES_STATIC_FILES}
+        ${CPU_FEATURES_LINUX_FILES}
+    )
+endif()
+
+source_group(Dependencies\\gainput FILES ${GAINPUT_FILES})
+source_group(Dependencies\\cpu_features ${CPU_FEATURES_FILES})
 
 add_library(The-Forge-Dependencies STATIC
     ${BASISU_FILES}
@@ -210,8 +285,10 @@ add_library(The-Forge-Dependencies STATIC
     ${MINIZIP_FILES}
     ${RMEM_FILES}
     ${THIRDPARTY_OSS_TINYEXR_FILES}
-    ${GAINPUT_STATIC_FILES}
+    ${GAINPUT_FILES}
     ${MESHOPTIMIZER_FILES}
+    ${CPU_FEATURES_FILES}
 )
 
 set_property(TARGET The-Forge-Dependencies PROPERTY CXX_STANDARD 17)
+set_property(TARGET The-Forge-Dependencies PROPERTY C_STANDARD 17)
