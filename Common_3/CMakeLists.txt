@@ -1,5 +1,7 @@
 # Dependencies
 
+set(THEFORGE_COMMON3_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+
 set(MIDDLEWARE_ECS_FILES
     ../Middleware_3/ECS/BaseComponent.cpp
     ../Middleware_3/ECS/BaseComponent.h

@@ -290,5 +290,15 @@ add_library(The-Forge-Dependencies STATIC
     ${CPU_FEATURES_FILES}
 )
 
+if(${DX12} MATCHES ON)
+    add_custom_target(DX12copyDLL
+                COMMAND ${CMAKE_COMMAND} -E copy ${THEFORGE_COMMON3_PATH}/ThirdParty/OpenSource/ags/ags_lib/lib/amd_ags_x64.dll    ${CMAKE_BINARY_DIR}
+                COMMAND ${CMAKE_COMMAND} -E copy ${THEFORGE_COMMON3_PATH}/ThirdParty/OpenSource/winpixeventruntime/bin/WinPixEventRuntime.dll    ${CMAKE_BINARY_DIR}
+                COMMAND ${CMAKE_COMMAND} -E copy ${THEFORGE_COMMON3_PATH}/ThirdParty/OpenSource/DirectXShaderCompiler/bin/x64/dxcompiler.dll    ${CMAKE_BINARY_DIR}
+                COMMAND ${CMAKE_COMMAND} -E copy ${THEFORGE_COMMON3_PATH}/ThirdParty/OpenSource/DirectXShaderCompiler/bin/x64/dxil.dll    ${CMAKE_BINARY_DIR})
+    
+    add_dependencies(The-Forge-Dependencies DX12copyDLL)
+endif()
+
 set_property(TARGET The-Forge-Dependencies PROPERTY CXX_STANDARD 17)
 set_property(TARGET The-Forge-Dependencies PROPERTY C_STANDARD 17)
