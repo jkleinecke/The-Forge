@@ -10,7 +10,7 @@ set(FORGE_FILES
         ${OS_CORE_FILES}
         ${OS_FILESYSTEM_FILES}
         ${OS_FONT_FILES}
-        ${OS_FONT_SHADER_FILES}
+        #${OS_FONT_SHADER_FILES}
         ${OS_INPUT_FILES}
         ${OS_INTERFACES_FILES}
         ${OS_LOGGING_FILES}
@@ -21,7 +21,7 @@ set(FORGE_FILES
         ${OS_PROFILER_FILES}
         ${OS_SCRIPTING_FILES}
         ${OS_UI_FILES}
-        ${OS_UI_SHADER_FILES}
+        #${OS_UI_SHADER_FILES}
         ${OS_MIDDLEWARE_ANIMATION_FILES}
         ${OS_MIDDLEWARE_PARALLEL_PRIMS_FILES}
         ${OS_WINDOWSYSTEM_FILES}
@@ -39,6 +39,28 @@ else()
     )
 endif()
 
+ #### TODO: Turn this into a more generic shader compilation pipeline
+set(FSL_LANGUAGES_LIST "")
+if(${DX12} MATCHES ON)
+    list(APPEND FSL_LANGUAGES_LIST "DIRECT3D12")
+endif()
+
+if(${VULKAN} MATCHES ON)
+    list(APPEND FSL_LANGUAGES_LIST "VULKAN")
+endif()
+
+if(${METAL} MATCHES ON)
+    list(APPEND FSL_LANGUAGES_LIST "METAL")
+endif()
+
+set(FSL_LANGUAGES "")
+list(JOIN FSL_LANGUAGES_LIST " " FSL_LANGUAGES)
+add_custom_target(FSLShaders
+     COMMAND python3 ${THEFORGE_COMMON3_PATH}/Tools/ForgeShadingLanguage/fsl.py -d ${CMAKE_BINARY_DIR}/Shaders -b ${CMAKE_BINARY_DIR}/CompiledShaders -l "${FSL_LANGUAGES}" --compile ${THEFORGE_COMMON3_PATH}/OS/Fonts/Shaders/FSL/fontstash2D.vert.fsl
+    )
+
+add_dependencies(The-Forge FSLShaders)
+#### END TODO
 
 set_property(TARGET The-Forge PROPERTY CXX_STANDARD 17)
 
@@ -46,7 +68,7 @@ target_include_directories(The-Forge INTERFACE ${GLOBAL_INTERFACE_INCLUDES})
 target_include_directories(The-Forge PUBLIC ${RENDER_INCLUDES})
 target_link_libraries(The-Forge PUBLIC The-Forge-Dependencies ozz_animation ${GLOBAL_LIBRARIES} ${RENDER_LIBRARIES})
 
-message("The-Forge Render Libraries: " + ${RENDER_LIBRARIES})
+message("The-Forge Render Libraries: " ${RENDER_LIBRARIES})
 
 target_compile_definitions(The-Forge PUBLIC ${GLOBAL_DEFINES})
 
