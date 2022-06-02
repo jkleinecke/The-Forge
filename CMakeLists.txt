@@ -242,5 +242,7 @@ endif()
 
 message("\n")
 
+
+include(FSLShader.cmake)
 add_subdirectory(Common_3)
 #add_subdirectory(Examples_3)

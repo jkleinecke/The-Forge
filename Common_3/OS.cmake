@@ -40,10 +40,13 @@ set(OS_FONT_FILES
     ./OS/Fonts/stbtt.cpp
 )
 
+set(OS_FONT_SHADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/OS/Fonts/Shaders/FSL/fontstash.frag.fsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/OS/Fonts/Shaders/FSL/fontstash2D.vert.fsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/OS/Fonts/Shaders/FSL/fontstash3D.vert.fsl
+)
+
 set(OS_FONT_SHADER_FILES
-    ./OS/Fonts/Shaders/FSL/fontstash.frag.fsl
-    ./OS/Fonts/Shaders/FSL/fontstash2D.vert.fsl
-    ./OS/Fonts/Shaders/FSL/fontstash3D.vert.fsl
     ./OS/Fonts/Shaders/FSL/resources.h
 )
 
@@ -125,11 +128,11 @@ set(OS_UI_FILES
     ./OS/UI/UI.cpp
 )
 
-set(OS_UI_SHADER_FILES
-    ./OS/UI/Shaders/FSL/imgui.frag.fsl
-    ./OS/UI/Shaders/FSL/imgui.vert.fsl
-    ./OS/UI/Shaders/FSL/textured_mesh.frag.fsl
-    ./OS/UI/Shaders/FSL/textured_mesh.vert.fsl
+set(OS_UI_SHADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/OS/UI/Shaders/FSL/imgui.frag.fsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/OS/UI/Shaders/FSL/imgui.vert.fsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/OS/UI/Shaders/FSL/textured_mesh.frag.fsl
+    ${CMAKE_CURRENT_SOURCE_DIR}/OS/UI/Shaders/FSL/textured_mesh.vert.fsl
 )
 
 set(OS_WINDOWSYSTEM_FILES

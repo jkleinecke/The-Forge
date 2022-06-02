@@ -290,8 +290,6 @@ add_library(The-Forge-Dependencies STATIC
     ${CPU_FEATURES_FILES}
 )
 
-set(FSL_LANGUAGES_LIST "")
-
 if(${DX12} MATCHES ON)
     add_custom_target(DX12copyDLL
                 COMMAND ${CMAKE_COMMAND} -E copy ${THEFORGE_COMMON3_PATH}/ThirdParty/OpenSource/ags/ags_lib/lib/amd_ags_x64.dll    ${CMAKE_BINARY_DIR}
@@ -300,7 +298,6 @@ if(${DX12} MATCHES ON)
                 COMMAND ${CMAKE_COMMAND} -E copy ${THEFORGE_COMMON3_PATH}/ThirdParty/OpenSource/DirectXShaderCompiler/bin/x64/dxil.dll    ${CMAKE_BINARY_DIR})
     
     add_dependencies(The-Forge-Dependencies DX12copyDLL)
-    list(APPEND FSL_LANGUAGES_LIST "DIRECT3D12")
 endif()
 
 set_property(TARGET The-Forge-Dependencies PROPERTY CXX_STANDARD 17)

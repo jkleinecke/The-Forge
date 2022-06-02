@@ -10,7 +10,7 @@ set(FORGE_FILES
         ${OS_CORE_FILES}
         ${OS_FILESYSTEM_FILES}
         ${OS_FONT_FILES}
-        #${OS_FONT_SHADER_FILES}
+        ${OS_FONT_SHADER_FILES}
         ${OS_INPUT_FILES}
         ${OS_INTERFACES_FILES}
         ${OS_LOGGING_FILES}
@@ -53,13 +53,12 @@ if(${METAL} MATCHES ON)
     list(APPEND FSL_LANGUAGES_LIST "METAL")
 endif()
 
+
 set(FSL_LANGUAGES "")
 list(JOIN FSL_LANGUAGES_LIST " " FSL_LANGUAGES)
-add_custom_target(FSLShaders
-     COMMAND python3 ${THEFORGE_COMMON3_PATH}/Tools/ForgeShadingLanguage/fsl.py -d ${CMAKE_BINARY_DIR}/Shaders -b ${CMAKE_BINARY_DIR}/CompiledShaders -l "${FSL_LANGUAGES}" --compile ${THEFORGE_COMMON3_PATH}/OS/Fonts/Shaders/FSL/fontstash2D.vert.fsl
-    )
+# target_add_shaders(The-Forge "${FSL_LANGUAGES}" ${THEFORGE_COMMON3_PATH}/OS/Fonts/Shaders/FSL/fontstash2D.vert.fsl)
+target_add_shaders(The-Forge "${FSL_LANGUAGES}" ${OS_FONT_SHADERS} ${OS_UI_SHADERS})
 
-add_dependencies(The-Forge FSLShaders)
 #### END TODO
 
 set_property(TARGET The-Forge PROPERTY CXX_STANDARD 17)
