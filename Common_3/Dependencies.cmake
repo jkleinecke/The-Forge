@@ -196,7 +196,7 @@ set(GAINPUT_MACOS_FILES
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/mouse/GainputInputDeviceMouseMac.mm
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/mouse/GainputInputDeviceMouseMacRaw.mm
     ./ThirdParty/OpenSource/gainput/lib/source/gainput/keyboard/GainputInputDeviceKeyboardMac.cpp
-    ./ThirdParty/OpenSource/gainput/lib/source/hidapi/mac/hid.cc
+    ./ThirdParty/OpenSource/gainput/lib/source/hidapi/mac/hid.m
 )
  
 set(GAINPUT_IOS_FILES

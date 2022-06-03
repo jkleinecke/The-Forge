@@ -221,7 +221,7 @@ if(${WINDOWS} MATCHES ON)
 endif()
 
 if(${METAL} MATCHES ON)
-    message("Metal reendering API")
+    message("Metal rendering API")
 endif()
 
 if(${VULKAN} MATCHES ON)

@@ -24,7 +24,9 @@
 
 #pragma once 
 
+#ifndef METAL
 #define METAL
+#endif
 
 #import <MetalKit/MetalKit.h>
 #include "MetalAvailabilityMacros.h"
